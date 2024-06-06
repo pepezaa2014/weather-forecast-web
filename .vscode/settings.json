@@ -1,0 +1,12 @@
+{
+  "editor.wordWrap": "wordWrapColumn",
+  "files.autoSave": "off",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "diffEditor.maxFileSize": 0,
+  "editor.wordWrapColumn": 120,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
+}

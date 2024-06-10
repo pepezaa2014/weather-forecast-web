@@ -1,4 +1,4 @@
-import { AQI } from "../constants/aqi";
+import { AQI } from "../../client/constants/aqi";
 
 interface Coord {
   lon: number;
@@ -26,7 +26,7 @@ interface List {
   dt: number;
 }
 
-export interface AirQualityData {
+export interface AirPollutionData {
   coord: Coord;
   list: List[];
 }

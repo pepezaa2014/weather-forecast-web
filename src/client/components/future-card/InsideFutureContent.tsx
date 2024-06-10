@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
-import WeatherData from "@/client/models/weather-model";
+import WeatherData from "@/src/server/models/weather-model";
 
 const InsideFutureContent = ({
   futureWeather,
@@ -33,20 +32,17 @@ const InsideFutureContent = ({
     <div className="flex flex-col items-center justify-center h-full w-full">
       {futureWeather && (
         <>
-          <p suppressHydrationWarning className="text-xs text-red-800">
-            {formattedDate}
-          </p>
-          <p suppressHydrationWarning className="text-sm text-red-800">
-            {formattedTime}
-          </p>
+          <p className="text-sm">{formattedDate}</p>
+          <p className="text-sm">{formattedTime}</p>
+
           <div className="h-12 w-12">
             <img
-              src={`weather_${futureWeather.weather[0].icon}.png`}
+              src={`/images/weather_${futureWeather.weather[0].icon}.png`}
               alt={futureWeather.weather[0].description}
               className="object-contain h-full w-full"
             />
           </div>
-          <p className="text-red-800">{futureWeather.weather[0].main}</p>
+          <p>{futureWeather.weather[0].main}</p>
         </>
       )}
       {!futureWeather && (

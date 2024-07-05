@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { convertTime } from "./actions";
 
+function convertTimeFormat(timeString: string) {
+  const [hours, minutes] = timeString.split(":");
+  const hoursNumber = parseInt(hours, 10);
+  const period = hoursNumber >= 12 ? "PM" : "AM";
+  const adjustedHours = hoursNumber % 12 || 12;
+  return `${String(adjustedHours).padStart(2, "0")}:${minutes} ${period}`;
+}
+
 const ConvertTimeComponent = ({
   time,
   timezoneOffset,
@@ -14,7 +22,7 @@ const ConvertTimeComponent = ({
     setLocalTime(convertTime({ time: time, timezoneOffset: timezoneOffset }));
   }, [time, timezoneOffset]);
 
-  return <span>{localTime}</span>;
+  return <span>{convertTimeFormat(localTime)}</span>;
 };
 
 export default ConvertTimeComponent;

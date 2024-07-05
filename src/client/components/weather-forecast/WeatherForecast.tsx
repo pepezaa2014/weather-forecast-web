@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { AQIMap } from "../../constants/aqi";
 import { AirPollutionData } from "../../../server/models/air-pollution";
 import FutureWeather from "../../../server/models/future-weather-model";
@@ -32,34 +32,38 @@ const WeatherForecast = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!currentLocation) return;
+
       try {
-        const weatherData = await fetchWeatherData({
-          city: currentLocation?.name ?? "",
+        let weatherData = await fetchWeatherData({
+          city: currentLocation.name,
         });
-        setWeatherData(weatherData);
-        if (weatherData == null) {
-          const weatherData = await fetchWeatherData({
-            lat: currentLocation?.lat ?? 0,
-            lon: currentLocation?.lon ?? 0,
+
+        if (!weatherData) {
+          weatherData = await fetchWeatherData({
+            lat: currentLocation.lat,
+            lon: currentLocation.lon,
           });
-          setWeatherData(weatherData);
         }
 
+        setWeatherData(weatherData);
+
         const futureWeatherData = await fetchFutureData({
-          lat: currentLocation?.lat ?? 0,
-          lon: currentLocation?.lon ?? 0,
+          lat: currentLocation.lat,
+          lon: currentLocation.lon,
         });
         setFutureWeatherData(futureWeatherData);
 
         const airPollutionData = await fetchAirPollution({
-          lat: currentLocation?.lat ?? 0,
-          lon: currentLocation?.lon ?? 0,
+          lat: currentLocation.lat,
+          lon: currentLocation.lon,
         });
         setAirPollutionData(airPollutionData);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
+
     fetchData();
   }, [currentLocation]);
 

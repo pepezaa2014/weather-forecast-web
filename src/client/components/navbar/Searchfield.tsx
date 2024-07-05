@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Geocoding } from "../../../server/models/geocoding-model";
 import { useHandleSelect } from "../weather-forecast/actions";
 import { GET as fetchGeocoding } from "@/src/app/api/app/geocoding/route";
-
 interface SearchfieldProps {
   setCurrentLocation: (location: Geocoding) => void;
 }
@@ -33,7 +32,7 @@ const Searchfield: React.FC<SearchfieldProps> = ({ setCurrentLocation }) => {
   }, [searchCity]);
 
   return (
-    <div className="relative flex items-center bg-white rounded px-2 py-4">
+    <div className="relative flex items-center px-2 py-4 bg-white rounded">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -51,8 +50,8 @@ const Searchfield: React.FC<SearchfieldProps> = ({ setCurrentLocation }) => {
       <input
         type="text"
         value={searchCity}
-        onChange={(e) => setSearchCity(e.target.value)}
-        className="text-black focus:outline-none pl-2 w-full"
+        onChange={(e: any) => setSearchCity(e.target.value)}
+        className="w-full pl-2 text-black focus:outline-none"
         onBlur={(e) => {
           if (
             !e.relatedTarget ||
@@ -64,11 +63,11 @@ const Searchfield: React.FC<SearchfieldProps> = ({ setCurrentLocation }) => {
         onFocus={() => searchCity && setIsDropdownVisible(true)}
       />
       {isDropdownVisible && geocodingData && geocodingData.length > 0 && (
-        <ul className="absolute bg-white border border-gray-300 w-full top-8 right-0 max-h-60 overflow-y-auto z-20">
+        <ul className="absolute right-0 z-20 w-full overflow-y-auto bg-white border border-gray-300 top-12 max-h-60">
           {geocodingData.map((location, index) => (
             <li
               key={index}
-              className="dropdown-item px-4 py-2 cursor-pointer hover:bg-gray-200"
+              className="px-4 py-2 cursor-pointer dropdown-item hover:bg-gray-200"
               onMouseDown={() => handleSelect(location)}
             >
               {location.name} ({location.country})

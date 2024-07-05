@@ -7,19 +7,9 @@ const FutureCard = ({
 }: {
   futureWeather: FutureWeather | null;
 }) => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
-
   return (
-    <div className="flex w-1/2 h-48 overflow-x-auto rounded-xl">
-      <div className="flex flex-row overflow-x-auto bg-primary px-4 gap-x-4 justify-between">
+    <div className="flex w-1/2 h-48 overflow-x-auto rounded-xl no-scrollbar">
+      <div className="flex flex-row justify-between px-4 bg-primary gap-x-4">
         {futureWeather?.list?.map((item, index) => (
           <div key={index} className="flex items-center text-center">
             <InsideFutureContent futureWeather={item} />

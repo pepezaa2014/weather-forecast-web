@@ -45,3 +45,17 @@ h1 {
   font-weight: bold;
   font-size: xx-large;
 }
+h2 {
+  font-weight: bold;
+  font-size: larger;
+  color: gray;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

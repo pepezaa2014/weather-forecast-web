@@ -1,7 +1,7 @@
 import React from "react";
 import WeatherData from "../../../server/models/weather-model";
 import { kelvinToCelsius } from "./actions";
-import Image from "next/image";
+import { Avatar } from "@nextui-org/avatar";
 
 interface MainDetailProps {
   weatherData: WeatherData | null;
@@ -19,14 +19,11 @@ const MainDetail: React.FC<MainDetailProps> = ({ weatherData }) => {
             </div>
           </div>
           <div className="flex flex-row mb-4">
-            <Image
+            <Avatar
               src={`/images/weather_${weatherData?.weather[0].icon}.png`}
-              className="mr-4"
-              width={48}
-              height={48}
-              alt=""
+              className="bg-primary mr-4"
             />
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col">
               <div className="font-bold">{weatherData.weather[0].main}</div>
               <div>{weatherData.weather[0].description}</div>
             </div>

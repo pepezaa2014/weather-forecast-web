@@ -3,6 +3,7 @@ import { AQIMap } from "../../constants/aqi";
 import { AirPollutionData } from "../../../server/models/air-pollution";
 import WeatherData from "../../../server/models/weather-model";
 import ConvertTimeComponent from "./time";
+import { Divider } from "@nextui-org/divider";
 
 interface DetailFormProps {
   airPollutionData: AirPollutionData | null;
@@ -17,6 +18,7 @@ const detailWeather = (
   return (
     <div className="flex flex-col">
       <div className="contentTitle">{title}</div>
+      <Divider className="w-4 my-1 bg-black" />
       <div className="detail">
         {detail !== undefined ? (
           <>
@@ -36,7 +38,7 @@ const DetailForm: React.FC<DetailFormProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center justify-center mb-4">
-      <div className="grid grid-cols-2 gap-x-64 gap-y-16 content-center">
+      <div className="grid content-center grid-cols-2 gap-x-64 gap-y-16">
         {detailWeather(
           "AQI",
           AQIMap[airPollutionData?.list[0]?.main?.aqi ?? 0]
@@ -47,27 +49,27 @@ const DetailForm: React.FC<DetailFormProps> = ({
           "μg/\u33A5"
         )}
         {detailWeather(
-          "พระอาทิตย์ขึ้น",
+          "Sun Rise",
           <ConvertTimeComponent
             time={weatherData?.sys.sunrise ?? 0}
             timezoneOffset={weatherData?.timezone ?? 0}
           />
         )}
         {detailWeather(
-          "พระอาทิตย์ตก",
+          "Sun Set",
           <ConvertTimeComponent
             time={weatherData?.sys.sunset ?? 0}
             timezoneOffset={weatherData?.timezone ?? 0}
           />
         )}
-        {detailWeather("ความเร็วลม", weatherData?.wind.speed, "m/s")}
-        {detailWeather("ความกดอากาศ", weatherData?.main.pressure, "hPa")}
+        {detailWeather("Wind Speed", weatherData?.wind.speed, "m/s")}
+        {detailWeather("Pressure", weatherData?.main.pressure, "hPa")}
         {detailWeather(
-          "ระยะการมองเห็น",
+          "Visibility",
           ((weatherData?.visibility ?? 0) / 1000).toFixed(2),
           "km"
         )}
-        {detailWeather("ความชื้น", weatherData?.main.humidity, "%")}
+        {detailWeather("Humidity", weatherData?.main.humidity, "%")}
       </div>
     </div>
   );
